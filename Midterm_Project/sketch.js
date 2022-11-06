@@ -16,10 +16,17 @@ let accelerations = []
 let heart_x;
 let heart_y;
 let heart_size;
-let hearts = [];
 
-let heart1;
-let heart2;
+let hearts = [];
+let heart_colors = [];
+
+let heart_r;
+let heart_g;
+let heart_b;
+
+let time;
+let index;
+
 
 
 // Scene 3
@@ -37,7 +44,7 @@ let heart2;
 
 function setup() {
   createCanvas(800, 800);
-  background(173, 216, 230);
+  background(140);
 
   for (let i = 0; i <= num_of_circles; i += 1) {
     positions[i] = createVector(400, 400);
@@ -66,8 +73,43 @@ function setup() {
     hearts[i] = new Heart(heart_x, heart_y, heart_size);
     heart_y += 20;
     heart_size -= 50;
-    
   }
+
+  heart_r = 0;
+  heart_g = 0;
+  heart_b = 0;
+
+  time = 0;
+  index = 0;
+
+  red200 = color(200, 0, 0);
+  red190 = color(190, 0, 0);
+  red180 = color(180, 0, 0);
+  red170 = color(170, 0, 0);
+  red160 = color(160, 0, 0);
+  red150 = color(150, 0, 0);
+  red140 = color(140, 0, 0);
+  red130 = color(130, 0, 0);
+  red120 = color(120, 0, 0);
+  red110 = color(110, 0, 0);
+  red100 = color(100, 0, 0);
+  red90 = color(90, 0, 0);
+  red80 = color(80, 0, 0);
+  red70 = color(70, 0, 0);
+  red60 = color(60, 0, 0);
+  red50 = color(50, 0, 0);
+  red40 = color(40, 0, 0);
+  red30 = color(30, 0, 0);
+  red20 = color(20, 0, 0);
+  red10 = color(10, 0, 0);
+  red0 = color(0);
+
+  for (let i = 0; i <= 24; i += 1) {
+    heart_colors[i] = color(heart_r, heart_g, heart_b);
+    heart_r += 14;
+  }
+
+  // heart_colors = [red0, red0, red0, red0, red0, red10, red20, red30, red40, red50, red60, red70, red80, red90, red100, red110, red120, red130, red140, red150, red160, red170, red180, red190, red200]
 
 }
 
@@ -100,131 +142,110 @@ function draw() {
 }
 
 function scene_one() {
-  background(173, 216, 230);
+  background(140);
   // Display objects
   for (let i = 0; i < 100; i += 1)  {
     circles[i].update();
-    circles[i].display(13, 204, 255);
+    circles[i].display(106, 106, 106);
   }
 
   if (millis() > 1800) {
     for (let i = 100; i < 200; i += 1)  {
       circles[i].update();
-      circles[i].display(24, 183, 255);
+      circles[i].display(84, 84, 89);
     }
   }
 
   if (millis() > 3600) {
     for (let i = 200; i < 300; i += 1)  {
       circles[i].update();
-      circles[i].display(38, 157, 255);
+      circles[i].display(69, 69, 78);
     }
   }
 
   if (millis() > 5400) {
     for (let i = 300; i < 400; i += 1)  {
       circles[i].update();
-      circles[i].display(57, 122, 255);
+      circles[i].display(57, 57, 71);
     }
   }
 
   if (millis() > 7200) {
     for (let i = 400; i <= 500; i += 1)  {
       circles[i].update();
-      circles[i].display(25, 71, 255);
+      circles[i].display(33, 33, 41);
     }
   }
 
   // Accelerate objects
   if (millis() > 10000) {
     for (let i = 0; i < 100; i += 1)  {
-      circles[i].display(13, 204, 255);
+      circles[i].display(106, 106, 106);
       circles[i].accelerate();
     }
     for (let i = 100; i < 200; i += 1)  {
-      circles[i].display(24, 183, 255);
+      circles[i].display(84, 84, 89);
       circles[i].accelerate();
     }
     for (let i = 200; i < 300; i += 1)  {
-      circles[i].display(38, 157, 255);
+      circles[i].display(69, 69, 78);
       circles[i].accelerate();
     }
     for (let i = 300; i < 400; i += 1)  {
-      circles[i].display(57, 122, 255);
+      circles[i].display(57, 57, 71);
       circles[i].accelerate();
     }
     for (let i = 400; i <= 500; i += 1)  {
-      circles[i].display(25, 71, 255);
+      circles[i].display(33, 33, 41);
       circles[i].accelerate();
     }
   }
 
   // Flicker Slow
   if (millis() > 25000 && millis() < 25200) {
-    background(173, 216, 230);
+    background(140);
   }
 
   if (millis() > 25400 && millis() < 25600) {
-    background(173, 216, 230);
+    background(140);
   }
 
   if (millis() > 25800 && millis() < 26000) {
-    background(173, 216, 230);
+    background(140);
   }
 
   if (millis() > 26200 && millis() < 26400) {
-    background(173, 216, 230);
+    background(140);
   }
 
   if (millis() > 26600 && millis() < 26800) {
-    background(173, 216, 230);
+    background(140);
   }
 
   // Flicker Fast
   if (millis() > 26900 && millis() < 27000) {
-    background(173, 216, 230);
+    background(140);
   }
 
   if (millis() > 27100 && millis() < 27200) {
-    background(173, 216, 230);
+    background(140);
   }
 
   if (millis() > 27300 && millis() < 27400) {
-    background(173, 216, 230);
+    background(140);
   }
 
   if (millis() > 27500 && millis() < 27600) {
-    background(173, 216, 230);
+    background(140);
   }
 
   if (millis() > 27700 && millis() < 27800) {
-    background(173, 216, 230);
+    background(140);
   }
 }
 
 function scene_two() {
   background(0);
-  red200 = color(200, 0, 0);
-  red190 = color(190, 0, 0);
-  red180 = color(180, 0, 0);
-  red170 = color(170, 0, 0);
-  red160 = color(160, 0, 0);
-  red150 = color(150, 0, 0);
-  red140 = color(140, 0, 0);
-  red130 = color(130, 0, 0);
-  red120 = color(120, 0, 0);
-  red110 = color(110, 0, 0);
-  red100 = color(100, 0, 0);
-  red90 = color(90, 0, 0);
-  red80 = color(80, 0, 0);
-  red70 = color(70, 0, 0);
-  red60 = color(60, 0, 0);
-  red50 = color(50, 0, 0);
-  red40 = color(40, 0, 0);
-  red30 = color(30, 0, 0);
-  red20 = color(20, 0, 0);
-  red10 = color(10, 0, 0);
-  red0 = color(0);
 
   // Flicker 1
   if (millis() > 30000 && millis() < 30500) {
@@ -333,882 +354,21 @@ function scene_two() {
 
   // Pattern
   if (millis() > 47000) {
-    hearts[24].display(red200);
-  }
-  if (millis() > 47050) {
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47100) {
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47150) {
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47200) {
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47250) {
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47300) {
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47350) {
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47400) {
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47450) {
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47500) {
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47550) {
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47600) {
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47650) {
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47700) {
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47750) {
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47800) {
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47850) {
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47900) {
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
-  }
-  if (millis() > 47950) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red200);
+    for (let i = 0; i <= 5000; i += 1) {
+      display_heart(index);
+    }
   }
 
-  if (millis() > 48000) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red190);
-    hearts[24].display(red190);
-  }
-  
-  if (millis() > 48200) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red180);
-    hearts[23].display(red180);
-    hearts[24].display(red180);
-  }
-    
-  if (millis() > 48400) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red170);
-    hearts[22].display(red170);
-    hearts[23].display(red170);
-    hearts[24].display(red170);
+  if (millis() > 47000) {
+    for (let i = 0; i <= 24; i += 1) {
+      hearts[i].display(heart_colors[i]);
+    }  
   }
 
-  if (millis() > 48600) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red160);
-    hearts[21].display(red160);
-    hearts[22].display(red160);
-    hearts[23].display(red160);
-    hearts[24].display(red160);
-  }
+}
 
-  if (millis() > 48800) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red150);
-    hearts[21].display(red150);
-    hearts[21].display(red150);
-    hearts[22].display(red150);
-    hearts[23].display(red150);
-    hearts[24].display(red150);
-  }
-
-  if (millis() > 49000) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red140);
-    hearts[20].display(red140);
-    hearts[21].display(red140);
-    hearts[21].display(red140);
-    hearts[22].display(red140);
-    hearts[23].display(red140);
-    hearts[24].display(red140);
-  }
-
-  if (millis() > 49200) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red130);
-    hearts[19].display(red130);
-    hearts[20].display(red130);
-    hearts[21].display(red130);
-    hearts[21].display(red130);
-    hearts[22].display(red130);
-    hearts[23].display(red130);
-    hearts[24].display(red130);
-  }
-
-  if (millis() > 49400) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red120);
-    hearts[18].display(red120);
-    hearts[19].display(red120);
-    hearts[20].display(red120);
-    hearts[21].display(red120);
-    hearts[21].display(red120);
-    hearts[22].display(red120);
-    hearts[23].display(red120);
-    hearts[24].display(red120);
-  }
-
-  if (millis() > 49600) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red110);
-    hearts[17].display(red110);
-    hearts[18].display(red110);
-    hearts[19].display(red110);
-    hearts[20].display(red110);
-    hearts[21].display(red110);
-    hearts[21].display(red110);
-    hearts[22].display(red110);
-    hearts[23].display(red110);
-    hearts[24].display(red110);
-  }
-
-  if (millis() > 49800) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red100);
-    hearts[16].display(red100);
-    hearts[17].display(red100);
-    hearts[18].display(red100);
-    hearts[19].display(red100);
-    hearts[20].display(red100);
-    hearts[21].display(red100);
-    hearts[21].display(red100);
-    hearts[22].display(red100);
-    hearts[23].display(red100);
-    hearts[24].display(red100);
-  }
-  if (millis() > 50000) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red90);
-    hearts[15].display(red90);
-    hearts[16].display(red90);
-    hearts[17].display(red90);
-    hearts[18].display(red90);
-    hearts[19].display(red90);
-    hearts[20].display(red90);
-    hearts[21].display(red90);
-    hearts[21].display(red90);
-    hearts[22].display(red90);
-    hearts[23].display(red90);
-    hearts[24].display(red90);
-  }
-
-  if (millis() > 50200) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red80);
-    hearts[14].display(red80);
-    hearts[15].display(red80);
-    hearts[16].display(red80);
-    hearts[17].display(red80);
-    hearts[18].display(red80);
-    hearts[19].display(red80);
-    hearts[20].display(red80);
-    hearts[21].display(red80);
-    hearts[21].display(red80);
-    hearts[22].display(red80);
-    hearts[23].display(red80);
-    hearts[24].display(red80);
-  }
-
-  if (millis() > 50400) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red70);
-    hearts[13].display(red70);
-    hearts[14].display(red70);
-    hearts[15].display(red70);
-    hearts[16].display(red70);
-    hearts[17].display(red70);
-    hearts[18].display(red70);
-    hearts[19].display(red70);
-    hearts[20].display(red70);
-    hearts[21].display(red70);
-    hearts[21].display(red70);
-    hearts[22].display(red70);
-    hearts[23].display(red70);
-    hearts[24].display(red70);
-  }
-
-  if (millis() > 50600) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red60);
-    hearts[12].display(red60);
-    hearts[13].display(red60);
-    hearts[14].display(red60);
-    hearts[15].display(red60);
-    hearts[16].display(red60);
-    hearts[17].display(red60);
-    hearts[18].display(red60);
-    hearts[19].display(red60);
-    hearts[20].display(red60);
-    hearts[21].display(red60);
-    hearts[21].display(red60);
-    hearts[22].display(red60);
-    hearts[23].display(red60);
-    hearts[24].display(red60);
-  }
-
-  if (millis() > 50800) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red50);
-    hearts[11].display(red50);
-    hearts[12].display(red50);
-    hearts[13].display(red50);
-    hearts[14].display(red50);
-    hearts[15].display(red50);
-    hearts[16].display(red50);
-    hearts[17].display(red50);
-    hearts[18].display(red50);
-    hearts[19].display(red50);
-    hearts[20].display(red50);
-    hearts[21].display(red50);
-    hearts[21].display(red50);
-    hearts[22].display(red50);
-    hearts[23].display(red50);
-    hearts[24].display(red50);
-  }
-
-  if (millis() > 51000) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red40);
-    hearts[10].display(red40);
-    hearts[11].display(red40);
-    hearts[12].display(red40);
-    hearts[13].display(red40);
-    hearts[14].display(red40);
-    hearts[15].display(red40);
-    hearts[16].display(red40);
-    hearts[17].display(red40);
-    hearts[18].display(red40);
-    hearts[19].display(red40);
-    hearts[20].display(red40);
-    hearts[21].display(red40);
-    hearts[21].display(red40);
-    hearts[22].display(red40);
-    hearts[23].display(red40);
-    hearts[24].display(red40);
-  }
-
-  if (millis() > 51200) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red30);
-    hearts[9].display(red30);
-    hearts[10].display(red30);
-    hearts[11].display(red30);
-    hearts[12].display(red30);
-    hearts[13].display(red30);
-    hearts[14].display(red30);
-    hearts[15].display(red30);
-    hearts[16].display(red30);
-    hearts[17].display(red30);
-    hearts[18].display(red30);
-    hearts[19].display(red30);
-    hearts[20].display(red30);
-    hearts[21].display(red30);
-    hearts[21].display(red30);
-    hearts[22].display(red30);
-    hearts[23].display(red30);
-    hearts[24].display(red30);
-  }
-
-  if (millis() > 51400) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red20);
-    hearts[8].display(red20);
-    hearts[9].display(red20);
-    hearts[10].display(red20);
-    hearts[11].display(red20);
-    hearts[12].display(red20);
-    hearts[13].display(red20);
-    hearts[14].display(red20);
-    hearts[15].display(red20);
-    hearts[16].display(red20);
-    hearts[17].display(red20);
-    hearts[18].display(red20);
-    hearts[19].display(red20);
-    hearts[20].display(red20);
-    hearts[21].display(red20);
-    hearts[21].display(red20);
-    hearts[22].display(red20);
-    hearts[23].display(red20);
-    hearts[24].display(red20);
-  }
-
-  if (millis() > 51600) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red10);
-    hearts[8].display(red10);
-    hearts[9].display(red10);
-    hearts[10].display(red10);
-    hearts[11].display(red10);
-    hearts[12].display(red10);
-    hearts[13].display(red10);
-    hearts[14].display(red10);
-    hearts[15].display(red10);
-    hearts[16].display(red10);
-    hearts[17].display(red10);
-    hearts[18].display(red10);
-    hearts[19].display(red10);
-    hearts[20].display(red10);
-    hearts[21].display(red10);
-    hearts[21].display(red10);
-    hearts[22].display(red10);
-    hearts[23].display(red10);
-    hearts[24].display(red10);
-  }
-  if (millis() > 51800) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red10);
-    hearts[7].display(red10);
-    hearts[8].display(red10);
-    hearts[9].display(red10);
-    hearts[10].display(red10);
-    hearts[11].display(red10);
-    hearts[12].display(red10);
-    hearts[13].display(red10);
-    hearts[14].display(red10);
-    hearts[15].display(red10);
-    hearts[16].display(red10);
-    hearts[17].display(red10);
-    hearts[18].display(red10);
-    hearts[19].display(red10);
-    hearts[20].display(red10);
-    hearts[21].display(red10);
-    hearts[21].display(red10);
-    hearts[22].display(red10);
-    hearts[23].display(red10);
-    hearts[24].display(red10);
-  }
-  if (millis() > 52000) {
-    hearts[0].display(red0);
-    hearts[1].display(red0);
-    hearts[2].display(red0);
-    hearts[3].display(red0);
-    hearts[4].display(red0);
-    hearts[5].display(red0);
-    hearts[6].display(red0);
-    hearts[7].display(red0);
-    hearts[8].display(red0);
-    hearts[9].display(red0);
-    hearts[10].display(red0);
-    hearts[11].display(red0);
-    hearts[12].display(red0);
-    hearts[13].display(red0);
-    hearts[14].display(red0);
-    hearts[15].display(red0);
-    hearts[16].display(red0);
-    hearts[17].display(red0);
-    hearts[18].display(red0);
-    hearts[19].display(red0);
-    hearts[20].display(red0);
-    hearts[21].display(red0);
-    hearts[21].display(red0);
-    hearts[22].display(red0);
-    hearts[23].display(red0);
-    hearts[24].display(red0);
-  }
+function display_heart(index) {
+  hearts[index].display(heart_colors[index]);
 }
 
 
