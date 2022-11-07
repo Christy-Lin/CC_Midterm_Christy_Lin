@@ -7,11 +7,6 @@ let positions = []
 let velocities = []
 let accelerations = []
 
-// Transition 1
-// let black;
-// let gray;
-// let amt;
-
 // Scene 2
 let heart_x;
 let heart_y;
@@ -24,10 +19,13 @@ let heart_r;
 let heart_g;
 let heart_b;
 
-let time;
-let index;
+// Scene 2 to scene 3 transition
+let black;
+let gray;
+let amt;
 
-
+// Scene 3
+let panic;
 
 // Scene 3
 // let position1_scene2;
@@ -46,16 +44,14 @@ function setup() {
   createCanvas(800, 800);
   background(140);
 
+  // Scene 1
   for (let i = 0; i <= num_of_circles; i += 1) {
     positions[i] = createVector(400, 400);
     velocities[i] = createVector(random(-5, 5), random(-5, 5));
     circles[i] = new Ball(positions[i], velocities[i], accelerations[i], red, green, blue);
   }
-
-  // black = color(0);
-  // gray = color(150);
-  // amt = 0;
   
+  // Scene 2
   heart_x = 400;
   heart_y = -140;
   heart_size = 1275;
@@ -109,7 +105,13 @@ function setup() {
     heart_r += 14;
   }
 
-  // heart_colors = [red0, red0, red0, red0, red0, red10, red20, red30, red40, red50, red60, red70, red80, red90, red100, red110, red120, red130, red140, red150, red160, red170, red180, red190, red200]
+  // Transition
+  black = color(0);
+  gray = color(140);
+  amt = 0;
+
+  // Scene 3
+  panicking = new Panic();
 
 }
 
@@ -123,8 +125,20 @@ function draw() {
     background(0);
   }
 
-  if (millis() > 30000 && millis() < 100000) {
+  // Scene 2
+  if (millis() > 30000 && millis() < 53000) {
     scene_two();
+  }
+
+  // Transition
+  if (millis() > 55000 && millis() < 58000) {
+    background(lerpColor(black, gray, amt));
+    amt += 0.005;
+  }
+
+  // Scene 3
+  if (millis() > 58000) {
+    scene_three();
   }
 
   // Scene 3
@@ -133,10 +147,6 @@ function draw() {
   // line1.display();
   // line1.update();
 
-  // if (millis() > 30000 && millis() < 34000) {
-  //   background(lerpColor(black, gray, amt));
-  //   amt += 0.005;
-  // }
 
 
 }
@@ -354,23 +364,86 @@ function scene_two() {
 
   // Pattern
   if (millis() > 47000) {
-    for (let i = 0; i <= 5000; i += 1) {
-      display_heart(index);
-    }
-  }
-
-  if (millis() > 47000) {
     for (let i = 0; i <= 24; i += 1) {
       hearts[i].display(heart_colors[i]);
+      translate(random(-1, 1),random(-1, 1));
     }  
   }
 
+  if (millis() > 48000) {
+    for (let i = 0; i <= 24; i += 1) {
+      hearts[i].display(heart_colors[i]);
+      translate(random(-2, 2),random(-2, 2));
+    }  
+  }
+
+  if (millis() > 49000) {
+    for (let i = 0; i <= 24; i += 1) {
+      hearts[i].display(heart_colors[i]);
+      translate(random(-3, 3),random(-3, 3));
+    }  
+  }
+
+  if (millis() > 50000) {
+    for (let i = 0; i <= 24; i += 1) {
+      hearts[i].display(heart_colors[i]);
+      translate(random(-4, 4),random(-4, 4));
+    }  
+  }
+
+  if (millis() > 51000) {
+    for (let i = 0; i <= 24; i += 1) {
+      hearts[i].display(heart_colors[i]);
+      translate(random(-5, 5),random(-5, 5));
+    }  
+  }
+
+  if (millis() > 52000 && millis() < 53000) {
+    background(0);
+  }
 }
 
-function display_heart(index) {
-  hearts[index].display(heart_colors[index]);
-}
+function scene_three() {
+  if (millis() > 58000 && millis() < 63000) {
+    if (frameCount % 50 == 0) {
+      panicking.display();
+      panicking.update1();
+    }
+  }
 
+  if (millis() > 63000 && millis() < 68000) {
+    if (frameCount % 25 == 0) {
+      panicking.display();
+      panicking.update1();
+    }
+  }
+
+  if (millis() > 68000 && millis() < 73000) {
+    if (frameCount % 12 == 0) {
+      panicking.display();
+      panicking.update1();
+    }
+  }
+  
+  if (millis() > 73000 && millis() < 78000) {
+    if (frameCount % 6 == 0) {
+      panicking.display();
+      panicking.update1();
+    }
+  }
+
+  if (millis() > 78000 && millis() < 83000) {
+    if (frameCount % 3 == 0) {
+      panicking.display();
+      panicking.update1();
+    }
+  }
+
+  if (millis() > 83000 && millis() < 100000) {
+      panicking.display();
+      panicking.update1();
+  }
+}
 
 class Ball {
   constructor(position, velocity, acceleration) {
@@ -402,29 +475,6 @@ class Ball {
   }
 }
 
-// class Line {
-//   constructor(position, velocity) {
-//     this.position = position;
-//     this.velocity = velocity;
-//   }
-
-//   display() {
-//     noStroke();
-//     fill(75);
-//     circle(this.position.x, this.position.y, 15);
-//   }
-
-//   update() {
-//     this.position.add(this.velocity);
-//     if ((this.position.x > width) || (this.position.x < 0)) {
-//       this.velocity.x = -this.velocity.x;
-//     }
-//     if ((this.position.y > height) || (this.position.y < 0)) {
-//       this.velocity.y = -this.velocity.y;
-//     }
-//   }
-// }
-
 class Heart {
   constructor(x, y, size) {
     this.x = x;
@@ -453,4 +503,60 @@ class Heart {
   //   this.x = this.original_x;
   //   this.y = this.original_y;
   // }
+}
+
+class Panic {
+  constructor() {
+    this.x1 = 0;
+    this.y1 = 0;
+    this.x2 = random(0, 800);
+    this.y2 = random(0, 800);
+    this.last_x = 0;
+    this.last_y = 0;
+  }
+
+  display() {
+    stroke(0);
+    strokeWeight(1);
+    line(this.x1, this.y1, this.x2, this.y2);
+  }
+
+  update1() {
+    this.x1 = this.x2;
+    this.y1 = this.y2;
+    this.x2 = random(0, 800);
+    this.y2 = random(0, 800);
+    
+  }
+  update1() {
+    this.x1 = this.x2;
+    this.y1 = this.y2;
+    this.x2 = random(0, 800);
+    this.y2 = random(0, 800);
+    
+  }
+}
+
+
+class Line {
+  constructor(position, velocity) {
+    this.position = position;
+    this.velocity = velocity;
+  }
+
+  display() {
+    noStroke();
+    fill(75);
+    circle(this.position.x, this.position.y, 15);
+  }
+
+  update() {
+    this.position.add(this.velocity);
+    if ((this.position.x > width) || (this.position.x < 0)) {
+      this.velocity.x = -this.velocity.x;
+    }
+    if ((this.position.y > height) || (this.position.y < 0)) {
+      this.velocity.y = -this.velocity.y;
+    }
+  }
 }
