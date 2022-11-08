@@ -27,19 +27,6 @@ let amt;
 // Scene 3
 let panic;
 
-// Scene 3
-// let position1_scene2;
-// let position2_scene2;
-// let position3_scene2;
-
-// let velocity1_scene2;
-// let velocity2_scene2;
-// let velocity3_scene2;
-
-// let line1;
-// let line2;
-// let line3;
-
 function setup() {
   createCanvas(800, 800);
   background(140);
@@ -55,15 +42,6 @@ function setup() {
   heart_x = 400;
   heart_y = -140;
   heart_size = 1275;
-
-
-  // position1_scene2 = createVector(0, 600);
-  // position2_scene2 = createVector(600, 0);
-  // position3_scene2 = createVector(800, 600);
-
-  
-  // velocity2_scene2 = createVector(0, 1);
-  // velocity3_scene2 = createVector(-1, 0);
 
   for (let i = 0; i <= 24; i += 1) {
     hearts[i] = new Heart(heart_x, heart_y, heart_size);
@@ -137,15 +115,16 @@ function draw() {
   }
 
   // Scene 3
-  if (millis() > 58000) {
+  if (millis() > 58000 && millis() < 101000) {
     scene_three();
   }
 
-  // Scene 3
-  // velocity1_scene2 = createVector(random(-8, 10), random(-10, 10));
-  // line1 = new Line(position1_scene2, velocity1_scene2);
-  // line1.display();
-  // line1.update();
+  // Scene 4
+  if (millis() > 103000) {
+    scene_four();
+  }
+  // scene_four();
+
 
 
 
@@ -407,43 +386,128 @@ function scene_three() {
   if (millis() > 58000 && millis() < 63000) {
     if (frameCount % 50 == 0) {
       panicking.display();
-      panicking.update1();
+      panicking.update();
     }
   }
 
   if (millis() > 63000 && millis() < 68000) {
     if (frameCount % 25 == 0) {
       panicking.display();
-      panicking.update1();
+      panicking.update();
     }
   }
 
   if (millis() > 68000 && millis() < 73000) {
     if (frameCount % 12 == 0) {
       panicking.display();
-      panicking.update1();
+      panicking.update();
     }
   }
   
   if (millis() > 73000 && millis() < 78000) {
     if (frameCount % 6 == 0) {
       panicking.display();
-      panicking.update1();
+      panicking.update();
     }
   }
 
   if (millis() > 78000 && millis() < 83000) {
     if (frameCount % 3 == 0) {
       panicking.display();
-      panicking.update1();
+      panicking.update();
     }
   }
 
   if (millis() > 83000 && millis() < 100000) {
       panicking.display();
-      panicking.update1();
+      panicking.update();
+  }
+
+  if (millis() > 100000 && millis() < 101000) {
+    background(140);
   }
 }
+
+function scene_four() {
+  background(0);
+  // c1 = color(255, 204, 0);
+  // c2 = color(255);
+  // setGradient(c1, c2);
+  // fill(lerpColor(c1, c2, 0.5));
+  fill(20);
+  beginShape();
+  vertex(0, 0);
+  vertex(200, 0);
+  vertex(325, 200);
+  vertex(325, 400);
+  vertex(200, 800);
+  vertex(0, 800);
+  vertex(0, 0);
+  endShape(CLOSE);
+  
+  
+  fill(20);
+  beginShape();
+  vertex(800, 0);
+  vertex(600, 0);
+  vertex(475, 200);
+  vertex(475, 400);
+  vertex(600, 800);
+  vertex(800, 800);
+  vertex(800, 0);
+  endShape(CLOSE);
+  noStroke();
+
+  fill(20);
+  beginShape();
+  vertex(327, 400);
+  vertex(203, 800);
+  vertex(598, 800);
+  vertex(473, 400);
+  endShape(CLOSE);
+
+  beginShape();
+  vertex(202, 0);
+  vertex(598, 0);
+  vertex(472, 200);
+  vertex(327, 200);
+  endShape(CLOSE);
+
+  fill(10);
+  beginShape();
+  vertex(325, 375);
+  vertex(325, 400);
+  vertex(200, 800);
+  vertex(180, 800);
+  endShape(CLOSE);
+
+  fill(10);
+  beginShape();
+  vertex(475, 375);
+  vertex(475, 400);
+  vertex(600, 800);
+  vertex(620, 800);
+  endShape(CLOSE);
+
+  // fill(25);
+  // beginShape();
+  // vertex(350, 225);
+  // vertex(450, 225);
+  // vertex(450, 398);
+  // vertex(350, 398);
+  // endShape(CLOSE);
+
+  fill(10);
+  beginShape();
+  vertex(350, 225);
+  vertex(450, 225);
+  vertex(450, 398);
+  vertex(350, 398);
+  endShape(CLOSE);
+
+  fill(25);
+}
+
 
 class Ball {
   constructor(position, velocity, acceleration) {
@@ -493,16 +557,6 @@ class Heart {
     bezierVertex(this.x + this.size, this.y + this.size / 3, this.x + this.size / 2, this.y - this.size / 2, this.x, this.y); // The x location, y location and heart size are utilized in the control and anchor points to draw the right half of the heart
     endShape(CLOSE);  // End drawing a custom shape using mode CLOSE
   }
-
-  // clear() {
-  //   this.x = -10000;
-  //   this.y = -10000;
-  // }
-
-  // restore_display() {
-  //   this.x = this.original_x;
-  //   this.y = this.original_y;
-  // }
 }
 
 class Panic {
@@ -515,48 +569,18 @@ class Panic {
     this.last_y = 0;
   }
 
+  
   display() {
     stroke(0);
     strokeWeight(1);
     line(this.x1, this.y1, this.x2, this.y2);
   }
 
-  update1() {
-    this.x1 = this.x2;
-    this.y1 = this.y2;
-    this.x2 = random(0, 800);
-    this.y2 = random(0, 800);
-    
-  }
-  update1() {
-    this.x1 = this.x2;
-    this.y1 = this.y2;
-    this.x2 = random(0, 800);
-    this.y2 = random(0, 800);
-    
-  }
-}
-
-
-class Line {
-  constructor(position, velocity) {
-    this.position = position;
-    this.velocity = velocity;
-  }
-
-  display() {
-    noStroke();
-    fill(75);
-    circle(this.position.x, this.position.y, 15);
-  }
-
   update() {
-    this.position.add(this.velocity);
-    if ((this.position.x > width) || (this.position.x < 0)) {
-      this.velocity.x = -this.velocity.x;
-    }
-    if ((this.position.y > height) || (this.position.y < 0)) {
-      this.velocity.y = -this.velocity.y;
-    }
+    this.x1 = this.x2;
+    this.y1 = this.y2;
+    this.x2 = random(0, 800);
+    this.y2 = random(0, 800);
+    
   }
 }
