@@ -27,6 +27,9 @@ let amt;
 // Scene 3
 let panic;
 
+// Scene 4
+let door;
+
 function setup() {
   createCanvas(800, 800);
   background(140);
@@ -94,36 +97,36 @@ function setup() {
 }
 
 function draw() {
-  // Scene 1
-  if (millis() < 27900) {
-    scene_one();
-  }
+  // // Scene 1
+  // if (millis() < 27900) {
+  //   scene_one();
+  // }
 
-  if (millis() > 28000 && millis() < 30000) {
-    background(0);
-  }
+  // if (millis() > 28000 && millis() < 30000) {
+  //   background(0);
+  // }
 
-  // Scene 2
-  if (millis() > 30000 && millis() < 53000) {
-    scene_two();
-  }
+  // // Scene 2
+  // if (millis() > 30000 && millis() < 53000) {
+  //   scene_two();
+  // }
 
-  // Transition
-  if (millis() > 55000 && millis() < 58000) {
-    background(lerpColor(black, gray, amt));
-    amt += 0.005;
-  }
+  // // Transition
+  // if (millis() > 55000 && millis() < 58000) {
+  //   background(lerpColor(black, gray, amt));
+  //   amt += 0.005;
+  // }
 
-  // Scene 3
-  if (millis() > 58000 && millis() < 101000) {
-    scene_three();
-  }
+  // // Scene 3
+  // if (millis() > 58000 && millis() < 101000) {
+  //   scene_three();
+  // }
 
-  // Scene 4
-  if (millis() > 103000) {
-    scene_four();
-  }
-  // scene_four();
+  // // Scene 4
+  // if (millis() > 103000) {
+  //   scene_four();
+  // }
+  scene_four();
 
 
 
@@ -489,25 +492,148 @@ function scene_four() {
   vertex(620, 800);
   endShape(CLOSE);
 
-  // fill(25);
+  // fill(10);
   // beginShape();
   // vertex(350, 225);
   // vertex(450, 225);
   // vertex(450, 398);
   // vertex(350, 398);
   // endShape(CLOSE);
+  door = new Door(350, 225, 100, 173)
+  door.display();
 
-  fill(10);
+  fill(50);
   beginShape();
-  vertex(350, 225);
-  vertex(450, 225);
-  vertex(450, 398);
-  vertex(350, 398);
+  vertex(370, 310);
+  vertex(385, 310);
+  vertex(385, 330);
+  vertex(370, 330);
   endShape(CLOSE);
 
-  fill(25);
+  fill(60);
+  beginShape();
+  vertex(375, 318);
+  vertex(395, 318);
+  vertex(395, 322);
+  vertex(375, 322);
+  endShape(CLOSE);
 }
 
+class Door {
+  constructor(x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
+
+  display() {
+    this.frame();
+    this.bolts();
+    this.bars();
+    this.window();
+    // this.web();
+    this.cracks();
+    this.light();
+    this.light_on();
+    // this.figure();
+    
+  }
+
+  frame() {
+    fill(10);
+    rect(this.x, this.y, this.width, this.height);
+    fill(20);
+    rect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
+  }
+  
+  bolts() {
+    fill(10);
+    for (let j = 241; j <= 381; j += 20) {
+      circle(440, j, 2);
+    }
+    for (let j = 241; j <= 381; j += 20) {
+      circle(360, j, 2);
+    }
+  }
+
+  bars() {
+    for (let j = 250; j <= 370; j += 30) {
+      rect(350, j, 100, 2);
+    }
+  }
+
+  window() {
+    fill(10);
+    square(this.x + 25, this.y + 25, this.width - 50);
+    fill(50);
+    square(this.x + 27, this.y + 27, this.width - 54);
+  }
+
+  web() {
+    stroke(150);
+    noFill();
+    line(475, 200, 475, 175);
+    line(475, 200, 505, 200);
+    line(475, 200, 488, 230);
+
+    line(475, 180, 500, 200);
+    line(500, 200, 485, 225);
+    line(485, 225, 460, 225);
+    line(460, 225, 450, 200);
+    line(450, 200, 475, 180);
+    // bezier(500, 200, 490, 200, 480, 200, 475, 180);
+    // bezier(475, 180, 470, 195, 470, 195, 455, 200);
+    // bezier(455, 200, 470, 195, 470, 195, 465, 220);
+    circle(475, 200, 1);
+  }
+
+  cracks() {
+    beginShape();
+    vertex(100, 400);
+    vertex(110, 390);
+    vertex(140, 400);
+    vertex(145, 400);
+    vertex(140, 380);
+    vertex(155, 400);
+    vertex(160, 400);
+    vertex(165, 370);
+    vertex(160, 360);
+    vertex(162, 355);
+    vertex(160, 350);
+    vertex(167, 370);
+    vertex(170, 380);
+    vertex(100, 600);
+    endShape(CLOSE);
+  }
+
+  light() {
+    stroke(255);
+    line(400, 253, 400, 255);
+    bezier(width/2 - 10, 260, width/2 - 5, 255, width/2 + 5, 255, width/2 + 10, 260);
+    ellipse(400, 261, 20, 5);
+  }
+
+  light_on() {
+    fill(201, 187, 93);
+    ellipse(400, 261, 20, 5);
+  }
+
+  figure() {
+    fill(0);
+    ellipseMode(RADIUS);
+    ellipse(width/2, height/3 + 8, 15, 17);
+    fill(255, 0, 0);
+    circle(width/2 - 5, height/3 + 8, 3);
+    circle(width/2 + 5, height/3 + 8, 3);
+    fill(0);
+    circle(width/2 - 5, height/3 + 8, 2);
+    circle(width/2 + 5, height/3 + 8, 2);
+    fill(255, 0, 0);
+    bezier(width/2 - 8, height/3 + 15, width/2 - 5, height/3 + 20, width/2 + 5, height/3 + 20, width/2 + 8, height/3 + 15);
+
+  }
+}
 
 class Ball {
   constructor(position, velocity, acceleration) {
