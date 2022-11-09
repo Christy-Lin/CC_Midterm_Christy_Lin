@@ -28,7 +28,9 @@ let amt;
 let panic;
 
 // Scene 4
-let door;
+let door_light;
+let hallway_light;
+let figure;
 
 function setup() {
   createCanvas(800, 800);
@@ -97,36 +99,36 @@ function setup() {
 }
 
 function draw() {
-  // // Scene 1
-  // if (millis() < 27900) {
-  //   scene_one();
-  // }
+  // Scene 1
+  if (millis() < 27900) {
+    scene_one();
+  }
 
-  // if (millis() > 28000 && millis() < 30000) {
-  //   background(0);
-  // }
+  if (millis() > 28000 && millis() < 30000) {
+    background(0);
+  }
 
-  // // Scene 2
-  // if (millis() > 30000 && millis() < 53000) {
-  //   scene_two();
-  // }
+  // Scene 2
+  if (millis() > 30000 && millis() < 53000) {
+    scene_two();
+  }
 
-  // // Transition
-  // if (millis() > 55000 && millis() < 58000) {
-  //   background(lerpColor(black, gray, amt));
-  //   amt += 0.005;
-  // }
+  // Transition
+  if (millis() > 55000 && millis() < 58000) {
+    background(lerpColor(black, gray, amt));
+    amt += 0.005;
+  }
 
-  // // Scene 3
-  // if (millis() > 58000 && millis() < 101000) {
-  //   scene_three();
-  // }
+  // Scene 3
+  if (millis() > 58000 && millis() < 101000) {
+    scene_three();
+  }
 
-  // // Scene 4
-  // if (millis() > 103000) {
-  //   scene_four();
-  // }
-  scene_four();
+  // Scene 4
+  if (millis() > 101000) {
+    scene_four();
+  }
+  // scene_four();
 
 
 
@@ -344,39 +346,11 @@ function scene_two() {
     hearts[23].display(red200);
   }
 
-  // Pattern
+  // Pattern + Shaking
   if (millis() > 47000) {
     for (let i = 0; i <= 24; i += 1) {
       hearts[i].display(heart_colors[i]);
-      translate(random(-1, 1),random(-1, 1));
-    }  
-  }
-
-  if (millis() > 48000) {
-    for (let i = 0; i <= 24; i += 1) {
-      hearts[i].display(heart_colors[i]);
-      translate(random(-2, 2),random(-2, 2));
-    }  
-  }
-
-  if (millis() > 49000) {
-    for (let i = 0; i <= 24; i += 1) {
-      hearts[i].display(heart_colors[i]);
-      translate(random(-3, 3),random(-3, 3));
-    }  
-  }
-
-  if (millis() > 50000) {
-    for (let i = 0; i <= 24; i += 1) {
-      hearts[i].display(heart_colors[i]);
-      translate(random(-4, 4),random(-4, 4));
-    }  
-  }
-
-  if (millis() > 51000) {
-    for (let i = 0; i <= 24; i += 1) {
-      hearts[i].display(heart_colors[i]);
-      translate(random(-5, 5),random(-5, 5));
+        translate(random(-3, 3),random(-3, 3));
     }  
   }
 
@@ -433,11 +407,48 @@ function scene_three() {
 
 function scene_four() {
   background(0);
-  // c1 = color(255, 204, 0);
-  // c2 = color(255);
-  // setGradient(c1, c2);
-  // fill(lerpColor(c1, c2, 0.5));
-  fill(20);
+  hallway_walls(20);
+  floor_ceiling(20);
+  baseboard(10);
+
+  door(350, 225, 100, 173);
+  door_light = new Door_Light();
+  hallway_light = new Hallway_Light();
+  mystery_figure = new Mystery_Figure();
+  door_light.light();
+  hallway_light.light();
+
+
+  if (millis() < 110000){
+    door_light.light_on();
+    if (millis() < 105000) {
+      hallway_light.light_on();
+
+    }
+  }
+
+  if (millis() > 105000 && millis() < 108000) {
+    if (frameCount % 4 == 0) {
+      hallway_light.light_on();
+    }
+  }
+
+  if (millis() > 110000 && millis() < 120000){
+    if (frameCount % 30 == 0) {
+      mystery_figure.display();
+      door_light.light_on();
+    }
+  }
+
+  if (millis() > 120000) {
+    mystery_figure.display();
+  }  
+}
+
+function hallway_walls(wall_color) {
+  noStroke();
+  fill(wall_color);
+  // Left wall
   beginShape();
   vertex(0, 0);
   vertex(200, 0);
@@ -447,9 +458,8 @@ function scene_four() {
   vertex(0, 800);
   vertex(0, 0);
   endShape(CLOSE);
-  
-  
-  fill(20);
+
+  // Right wall
   beginShape();
   vertex(800, 0);
   vertex(600, 0);
@@ -459,9 +469,11 @@ function scene_four() {
   vertex(800, 800);
   vertex(800, 0);
   endShape(CLOSE);
-  noStroke();
+}
 
-  fill(20);
+function floor_ceiling(floor_color) {
+  fill(floor_color);
+  // Floor
   beginShape();
   vertex(327, 400);
   vertex(203, 800);
@@ -469,14 +481,18 @@ function scene_four() {
   vertex(473, 400);
   endShape(CLOSE);
 
+  // Ceiling
   beginShape();
   vertex(202, 0);
   vertex(598, 0);
   vertex(472, 200);
   vertex(327, 200);
   endShape(CLOSE);
+}
 
-  fill(10);
+function baseboard(baseboard_color) {
+  fill(baseboard_color);
+  // Left
   beginShape();
   vertex(325, 375);
   vertex(325, 400);
@@ -484,29 +500,64 @@ function scene_four() {
   vertex(180, 800);
   endShape(CLOSE);
 
-  fill(10);
+  // Right
   beginShape();
   vertex(475, 375);
   vertex(475, 400);
   vertex(600, 800);
   vertex(620, 800);
   endShape(CLOSE);
+}
 
-  // fill(10);
-  // beginShape();
-  // vertex(350, 225);
-  // vertex(450, 225);
-  // vertex(450, 398);
-  // vertex(350, 398);
-  // endShape(CLOSE);
-  door = new Door(350, 225, 100, 173)
-  door.display();
+function door(x, y, width, height) {
+  frame(x, y, width, height);
+  bolts();
+  bars();
+  door_window(x, y, width);
+  door_knob();
+}
 
+function frame(x, y, width, height) {
+  noStroke();
+  fill(10);
+  rect(x, y, width, height);
+  fill(20);
+  rect(x + 5, y + 5, width - 10, height - 10);
+}
+
+function bolts() {
+  noStroke();
+  ellipseMode(CENTER);
+  fill(10);
+  for (let j = 241; j <= 381; j += 20) {
+    circle(440, j, 2);
+  }
+  for (let j = 241; j <= 381; j += 20) {
+    circle(360, j, 2);
+  }
+}
+
+function bars() {
+  noStroke();
+  for (let j = 250; j <= 370; j += 30) {
+    rect(350, j, 100, 2);
+  }
+}
+
+function door_window(x, y, width) {
+  fill(10);
+  square(x + 25, y + 25, width - 50);
+  fill(50);
+  square(x + 27, y + 27, width - 54);
+}
+
+function door_knob() {
+  noStroke();
   fill(50);
   beginShape();
   vertex(370, 310);
-  vertex(385, 310);
-  vertex(385, 330);
+  vertex(383, 310);
+  vertex(383, 330);
   vertex(370, 330);
   endShape(CLOSE);
 
@@ -517,122 +568,6 @@ function scene_four() {
   vertex(395, 322);
   vertex(375, 322);
   endShape(CLOSE);
-}
-
-class Door {
-  constructor(x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-  }
-
-  display() {
-    this.frame();
-    this.bolts();
-    this.bars();
-    this.window();
-    // this.web();
-    this.cracks();
-    this.light();
-    this.light_on();
-    // this.figure();
-    
-  }
-
-  frame() {
-    fill(10);
-    rect(this.x, this.y, this.width, this.height);
-    fill(20);
-    rect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-  }
-  
-  bolts() {
-    fill(10);
-    for (let j = 241; j <= 381; j += 20) {
-      circle(440, j, 2);
-    }
-    for (let j = 241; j <= 381; j += 20) {
-      circle(360, j, 2);
-    }
-  }
-
-  bars() {
-    for (let j = 250; j <= 370; j += 30) {
-      rect(350, j, 100, 2);
-    }
-  }
-
-  window() {
-    fill(10);
-    square(this.x + 25, this.y + 25, this.width - 50);
-    fill(50);
-    square(this.x + 27, this.y + 27, this.width - 54);
-  }
-
-  web() {
-    stroke(150);
-    noFill();
-    line(475, 200, 475, 175);
-    line(475, 200, 505, 200);
-    line(475, 200, 488, 230);
-
-    line(475, 180, 500, 200);
-    line(500, 200, 485, 225);
-    line(485, 225, 460, 225);
-    line(460, 225, 450, 200);
-    line(450, 200, 475, 180);
-    // bezier(500, 200, 490, 200, 480, 200, 475, 180);
-    // bezier(475, 180, 470, 195, 470, 195, 455, 200);
-    // bezier(455, 200, 470, 195, 470, 195, 465, 220);
-    circle(475, 200, 1);
-  }
-
-  cracks() {
-    beginShape();
-    vertex(100, 400);
-    vertex(110, 390);
-    vertex(140, 400);
-    vertex(145, 400);
-    vertex(140, 380);
-    vertex(155, 400);
-    vertex(160, 400);
-    vertex(165, 370);
-    vertex(160, 360);
-    vertex(162, 355);
-    vertex(160, 350);
-    vertex(167, 370);
-    vertex(170, 380);
-    vertex(100, 600);
-    endShape(CLOSE);
-  }
-
-  light() {
-    stroke(255);
-    line(400, 253, 400, 255);
-    bezier(width/2 - 10, 260, width/2 - 5, 255, width/2 + 5, 255, width/2 + 10, 260);
-    ellipse(400, 261, 20, 5);
-  }
-
-  light_on() {
-    fill(201, 187, 93);
-    ellipse(400, 261, 20, 5);
-  }
-
-  figure() {
-    fill(0);
-    ellipseMode(RADIUS);
-    ellipse(width/2, height/3 + 8, 15, 17);
-    fill(255, 0, 0);
-    circle(width/2 - 5, height/3 + 8, 3);
-    circle(width/2 + 5, height/3 + 8, 3);
-    fill(0);
-    circle(width/2 - 5, height/3 + 8, 2);
-    circle(width/2 + 5, height/3 + 8, 2);
-    fill(255, 0, 0);
-    bezier(width/2 - 8, height/3 + 15, width/2 - 5, height/3 + 20, width/2 + 5, height/3 + 20, width/2 + 8, height/3 + 15);
-
-  }
 }
 
 class Ball {
@@ -708,5 +643,62 @@ class Panic {
     this.x2 = random(0, 800);
     this.y2 = random(0, 800);
     
+  }
+}
+
+class Mystery_Figure {
+  display() {
+    noStroke();
+    ellipseMode(RADIUS);
+    fill(60);
+    stroke(0);
+    strokeWeight(1);
+    bezier(width/2 - 18, height/3 + 31, width/2 - 15, height/3 + 20, width/2 + 15, height/3 + 20, width/2 + 18, height/3 + 31);
+    ellipse(width/2, height/3 + 14, 12, 15);
+    fill(0);
+    ellipse(width/2, height/3 + 16, 10, 11);
+  }
+}
+
+class Door_Light {
+  light() {
+    stroke(150);
+    line(400, 253, 400, 255);
+    bezier(width/2 - 10, 260, width/2 - 5, 255, width/2 + 5, 255, width/2 + 10, 260);
+    ellipseMode(CENTER);
+    ellipse(400, 261, 20, 5);
+  }
+
+  light_on() {
+    stroke(150);
+    fill(201, 187, 93);
+    ellipseMode(CENTER);
+    ellipse(400, 261, 20, 5);
+    noStroke();
+    fill(201, 187, 93, 50);
+    quad(390, 260, 410, 260, 420, 298, 380, 298);
+  }
+}
+
+class Hallway_Light {
+  light() {
+    stroke(150);
+    line(400, 98, 400, 100);
+    fill(30);
+    bezier(width/2 - 25, 110, width/2 - 15, 97, width/2 + 15, 97, width/2 + 25, 110);
+    ellipseMode(CENTER);
+    ellipse(400, 111, 50, 13);
+  }
+
+  light_on() {
+    stroke(150);
+    fill(181, 166, 71);
+    ellipse(400, 111, 50, 13);
+    noStroke();
+    fill(201, 187, 93, 50);
+    quad(375, 110, 425, 110, 480, 500, 320, 500);
+    ellipseMode(CENTER);
+    ellipse(400, 500, 160, 40);
+    bezier(320, 500, 330, 527, 470, 527, 480, 500);
   }
 }
