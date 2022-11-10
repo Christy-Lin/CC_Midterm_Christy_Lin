@@ -32,6 +32,13 @@ let door_light;
 let hallway_light;
 let figure;
 
+// Scene 5
+let stick_figures = [];
+let main_stick_figure;
+let stick_red;
+let stick_green;
+let stick_blue;
+
 function setup() {
   createCanvas(800, 800);
   background(140);
@@ -58,30 +65,8 @@ function setup() {
   heart_g = 0;
   heart_b = 0;
 
-  time = 0;
-  index = 0;
-
-  red200 = color(200, 0, 0);
-  red190 = color(190, 0, 0);
-  red180 = color(180, 0, 0);
-  red170 = color(170, 0, 0);
-  red160 = color(160, 0, 0);
-  red150 = color(150, 0, 0);
-  red140 = color(140, 0, 0);
-  red130 = color(130, 0, 0);
-  red120 = color(120, 0, 0);
-  red110 = color(110, 0, 0);
-  red100 = color(100, 0, 0);
-  red90 = color(90, 0, 0);
-  red80 = color(80, 0, 0);
-  red70 = color(70, 0, 0);
-  red60 = color(60, 0, 0);
-  red50 = color(50, 0, 0);
-  red40 = color(40, 0, 0);
-  red30 = color(30, 0, 0);
-  red20 = color(20, 0, 0);
-  red10 = color(10, 0, 0);
-  red0 = color(0);
+  red100 = color(200, 0, 0);
+  red15 = color(200, 0, 0, 15);
 
   for (let i = 0; i <= 24; i += 1) {
     heart_colors[i] = color(heart_r, heart_g, heart_b);
@@ -96,6 +81,23 @@ function setup() {
   // Scene 3
   panicking = new Panic();
 
+  // Scene 4
+  door_light = new Door_Light();
+  hallway_light = new Hallway_Light();
+  figure = new Mystery_Figure();
+
+  // Scene 5
+  for (let i = 50; i <= 750; i += 50) {
+    for (let j = 50; j <= 750; j += 50) {
+      if (i != 400 && j != 400) {
+        stick_figures.push(new Stick_Figure(i, j));
+      }
+    }
+  }
+  main_stick_figure = new Stick_Figure(400, 400);
+  stick_red = 246;
+  stick_green = 213;
+  stick_blue = 57;
 }
 
 function draw() {
@@ -125,14 +127,14 @@ function draw() {
   }
 
   // Scene 4
-  if (millis() > 101000) {
+  if (millis() > 101000 && millis() < 125000) {
     scene_four();
   }
-  // scene_four();
 
-
-
-
+  // Scene 5
+  if (millis() > 125000) {
+    scene_five();
+  }
 }
 
 function scene_one() {
@@ -195,47 +197,13 @@ function scene_one() {
     }
   }
 
-  // Flicker Slow
-  if (millis() > 25000 && millis() < 25200) {
-    background(140);
+  // Flicker
+  if (millis() > 25000 && millis() < 27900) {
+    if (frameCount % 2 == 0) {
+      background(140);
+    }
   }
-
-  if (millis() > 25400 && millis() < 25600) {
-    background(140);
-  }
-
-  if (millis() > 25800 && millis() < 26000) {
-    background(140);
-  }
-
-  if (millis() > 26200 && millis() < 26400) {
-    background(140);
-  }
-
-  if (millis() > 26600 && millis() < 26800) {
-    background(140);
-  }
-
-  // Flicker Fast
-  if (millis() > 26900 && millis() < 27000) {
-    background(140);
-  }
-
-  if (millis() > 27100 && millis() < 27200) {
-    background(140);
-  }
-
-  if (millis() > 27300 && millis() < 27400) {
-    background(140);
-  }
-
-  if (millis() > 27500 && millis() < 27600) {
-    background(140);
-  }
-
-  if (millis() > 27700 && millis() < 27800) {
-    background(140);
-  }
+  
 }
 
 function scene_two() {
@@ -243,113 +211,115 @@ function scene_two() {
 
   // Flicker 1
   if (millis() > 30000 && millis() < 30500) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 32000 && millis() < 32500) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 34000 && millis() < 34500) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
 
   // Flicker 2
   if (millis() > 35500 && millis() < 35900) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 36300 && millis() < 36700) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 37000 && millis() < 37400) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
 
   // Flicker 3
   if (millis() > 37800 && millis() < 38000) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 38200 && millis() < 38400) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 38600 && millis() < 38800) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 39000 && millis() < 39200) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 39400 && millis() < 39600) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
 
   // Flicker 4
   if (millis() > 39800 && millis() < 39900) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 40000 && millis() < 40100) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 40200 && millis() < 40300) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 40400 && millis() < 40500) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 40600 && millis() < 40700) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 40800 && millis() < 40900) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
   if (millis() > 41000 && millis() < 41100) {
-    hearts[24].display(red200); 
+    hearts[24].display(red100); 
   }
 
   // Heart beat 1
   if (millis() > 41200 && millis() < 42000) {
-    hearts[24].display(red200);
+    hearts[24].display(red100);
   }
   if (millis() > 42000 && millis() < 42500) {
-    hearts[23].display(red200);
+    hearts[23].display(red100);
   }
 
   if (millis() > 42500 && millis() < 43500) {
-    hearts[24].display(red200);
+    hearts[24].display(red100);
   }
   if (millis() > 43500 && millis() < 44000) {
-    hearts[23].display(red200);
+    hearts[23].display(red100);
   }
 
   if (millis() > 44000 && millis() < 45000) {
-    hearts[24].display(red200);
+    hearts[24].display(red100);
   }
   if (millis() > 45000 && millis() < 45500) {
-    hearts[23].display(red200);
+    hearts[23].display(red100);
   }
   // Heart beat 2
   if (millis() > 45500 && millis() < 45750) {
-    hearts[24].display(red200);
+    hearts[24].display(red100);
   }
   if (millis() > 45750 && millis() < 46000) {
-    hearts[23].display(red200);
+    hearts[23].display(red100);
   }
 
   if (millis() > 46000 && millis() < 46275) {
-    hearts[24].display(red200);
+    hearts[24].display(red100);
   }
   if (millis() > 46275 && millis() < 46500) {
-    hearts[23].display(red200);
+    hearts[23].display(red100);
   }
 
   if (millis() > 46500 && millis() < 46750) {
-    hearts[24].display(red200);
+    hearts[24].display(red100);
   }
   if (millis() > 46750 && millis() < 47000) {
-    hearts[23].display(red200);
+    hearts[23].display(red100);
   }
 
   // Pattern + Shaking
   if (millis() > 47000) {
+    background(50);
+    stroke(0);
     for (let i = 0; i <= 24; i += 1) {
-      hearts[i].display(heart_colors[i]);
+      hearts[i].display(red15);
         translate(random(-3, 3),random(-3, 3));
     }  
   }
@@ -412,37 +382,70 @@ function scene_four() {
   baseboard(10);
 
   door(350, 225, 100, 173);
-  door_light = new Door_Light();
-  hallway_light = new Hallway_Light();
-  mystery_figure = new Mystery_Figure();
-  door_light.light();
-  hallway_light.light();
+  door_light.light(400, 261);
+  hallway_light.light(400, 111);
 
 
   if (millis() < 110000){
-    door_light.light_on();
+    door_light.light_on(201, 187, 93, 50);
     if (millis() < 105000) {
-      hallway_light.light_on();
+      hallway_light.light_on(201, 187, 93, 50);
 
     }
   }
 
   if (millis() > 105000 && millis() < 108000) {
     if (frameCount % 4 == 0) {
-      hallway_light.light_on();
+      hallway_light.light_on(201, 187, 93, 50);
     }
   }
 
   if (millis() > 110000 && millis() < 120000){
     if (frameCount % 30 == 0) {
-      mystery_figure.display();
-      door_light.light_on();
+      figure.display();
+      door_light.light_on(201, 187, 93, 50);
     }
   }
 
-  if (millis() > 120000) {
-    mystery_figure.display();
+  if (millis() > 120000 && millis() < 125000) {
+    figure.display(201, 187, 93, 50);
   }  
+}
+
+function scene_five() {
+  background(12, 35, 70);
+  push();
+  translate(-400, -400);
+  scale(2);
+  main_stick_figure.display(stick_red, stick_green, stick_blue, 100, 15, stick_red, stick_green, stick_blue);
+  pop();
+
+  if (millis() > 125000 && millis() < 127000) {
+    for (let i = 0; i < 196; i += 1) {
+      stick_figures[i].display(34, 71, 134, 50, 15, 34, 71, 134);
+    }
+  }
+  
+  if (millis() > 127000 && millis() < 150000) {
+    for (let i = 0; i < 196; i += 1) {
+        let r = random(0, 255)
+        let g = random(0, 255);
+        let b = random(0, 255);
+  
+        stick_figures[i].display(r, g, b, 50, 15, r, g, b);
+        
+        if (frameCount % 2 == 0) {
+          stick_red -= 0.01;
+          stick_green -= 0.01;
+          stick_blue -= 0.01;
+          translate(random(-10, 10), random(-5, 5));
+        } 
+    }
+  }
+
+  if (millis() > 150000) {
+    background(0);
+  }
 }
 
 function hallway_walls(wall_color) {
@@ -661,44 +664,66 @@ class Mystery_Figure {
 }
 
 class Door_Light {
-  light() {
+  light(x, y) {
     stroke(150);
     line(400, 253, 400, 255);
     bezier(width/2 - 10, 260, width/2 - 5, 255, width/2 + 5, 255, width/2 + 10, 260);
     ellipseMode(CENTER);
-    ellipse(400, 261, 20, 5);
+    ellipse(x, y, 20, 5);
   }
 
-  light_on() {
+  light_on(r, g, b, opacity) {
     stroke(150);
     fill(201, 187, 93);
     ellipseMode(CENTER);
     ellipse(400, 261, 20, 5);
     noStroke();
-    fill(201, 187, 93, 50);
+    fill(r, g, b, opacity);
     quad(390, 260, 410, 260, 420, 298, 380, 298);
   }
 }
 
 class Hallway_Light {
-  light() {
+  light(x, y) {
     stroke(150);
     line(400, 98, 400, 100);
     fill(30);
     bezier(width/2 - 25, 110, width/2 - 15, 97, width/2 + 15, 97, width/2 + 25, 110);
     ellipseMode(CENTER);
-    ellipse(400, 111, 50, 13);
+    ellipse(x, y, 50, 13);
+    
   }
 
-  light_on() {
+  light_on(r, g, b, opacity) {
     stroke(150);
     fill(181, 166, 71);
     ellipse(400, 111, 50, 13);
     noStroke();
-    fill(201, 187, 93, 50);
+    fill(r, g, b, opacity);
     quad(375, 110, 425, 110, 480, 500, 320, 500);
     ellipseMode(CENTER);
     ellipse(400, 500, 160, 40);
     bezier(320, 500, 330, 527, 470, 527, 480, 500);
   }
+}
+
+class Stick_Figure {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  display(fill_r, fill_g, fill_b, fill_opacity, size, stroke_r, stroke_g, stroke_b) {
+    fill(fill_r, fill_g, fill_b, fill_opacity);
+    strokeWeight(2);
+    ellipseMode(CENTER);
+    stroke(stroke_r, stroke_g, stroke_b);
+    circle(this.x, this.y - 5, size);
+    line(this.x, this.y + 3, this.x, this.y + 12);
+    line(this.x, this.y + 5, this.x - 5, this.y + 10);
+    line(this.x, this.y + 5, this.x + 5, this.y + 10);
+    line(this.x, this.y + 13, this.x - 5, this.y + 18);
+    line(this.x, this.y + 13, this.x + 5, this.y + 18);
+  }
+  
 }
